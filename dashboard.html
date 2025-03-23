@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SynthData Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        :root {
+    --primary: #3a86ff;
+    --secondary: #8338ec;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray-800: #1f2937;
+    --gray-500: #6b7280;
+}
+
+body {
+    display: flex;
+    font-family: 'Inter', sans-serif;
+    background: var(--light);
+    color: var(--gray-800);
+    margin: 0;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: var(--dark);
+    color: white;
+    height: 100vh;
+    padding: 2rem 1rem;
+    position: fixed;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+nav a {
+    display: block;
+    padding: 1rem;
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+nav a:hover, nav a.active {
+    background: var(--primary);
+}
+
+/* Main Content */
+.content {
+    margin-left: 270px;
+    padding: 2rem;
+    width: 100%;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Stats */
+.stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.stat-card {
+    flex: 1;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card i {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.stat-card h3 {
+    margin: 0.5rem 0;
+}
+
+.stat-card p {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Recent Datasets */
+.recent-datasets {
+    margin-top: 3rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-500);
+}
+
+th {
+    background: var(--gray-800);
+    color: white;
+}
+
+.download {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.download:hover {
+    background: var(--secondary);
+}
+.data-transformation {
+    margin-top: 2rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.transformation-options {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.transformation-options button {
+    background: #3a86ff;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.transformation-options button:hover {
+    background: #2563eb;
+}
+
+.data-preview {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-database"></i>
+            <span>SynthData</span>
+        </div>
+        <nav>
+            <a href="#" class="active"><i class="fas fa-chart-line"></i> Dashboard</a>
+            <a href="solutions.html"><i class="fas fa-magic"></i> Generate Dataset</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+        <header>
+            <h1>Dashboard</h1>
+            <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+        </header>
+
+        <!-- Stats Overview -->
+        <section class="stats">
+            <div class="stat-card">
+                <i class="fas fa-database"></i>
+                <h3>Generated Datasets</h3>
+                <p>128</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-file-alt"></i>
+                <h3>Total Records</h3>
+                <p>2.4M</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-cloud-download-alt"></i>
+                <h3>Downloads</h3>
+                <p>87</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-certificate"></i>
+                <h3>Data Quality Score</h3>
+                <p>98%</p>
+            </div>
+        </section>
+
+        <!-- Recent Datasets -->
+        <section class="recent-datasets">
+            <h2>Recent Datasets</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Records</th>
+                        <th>Generated On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Healthcare Data</td>
+                        <td>CSV</td>
+                        <td>10,000</td>
+                        <td>2025-03-23</td>
+                        <td><button class="download"><i class="fas fa-download"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>Finance Transactions</td>
+                        <td>JSON</td>
+                        <td>5,000</td>
+                        <td>2025-03-22</td>
+                        <td><button class="download"><i class="fas fa-download"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="data-transformation">
+            <h2>Data Transformation Tools</h2>
+        
+            <div class="transformation-options">
+                <button id="remove-duplicates">🧹 Remove Duplicates</button>
+                <button id="normalize-data">📊 Normalize Data</button>
+                <button id="reshape-data">🔄 Reshape Data</button>
+                <button id="categorize-data">🏷 Categorize Data</button>
+            </div>
+        
+            <div class="data-preview">
+                <h3>Transformed Data Preview</h3>
+                <pre id="output-preview">{}</pre>
+            </div>
+        </section>
+        
+    </main>
+
+    <script>document.querySelector(".theme-toggle").addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+    });
+    document.getElementById("remove-duplicates").addEventListener("click", async function () {
+    transformData("remove_duplicates");
+});
+
+document.getElementById("normalize-data").addEventListener("click", async function () {
+    transformData("normalize");
+});
+
+document.getElementById("reshape-data").addEventListener("click", async function () {
+    transformData("reshape");
+});
+
+document.getElementById("categorize-data").addEventListener("click", async function () {
+    transformData("categorize");
+});
+
+async function transformData(action) {
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/transform_data?action=${action}`);
+        if (!response.ok) throw new Error("Failed to fetch transformed data");
+
+        const data = await response.json();
+        document.getElementById("output-preview").innerText = JSON.stringify(data.transformed_data, null, 2);
+    } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("output-preview").innerText = "Error transforming data.";
+    }
+}
+
+    
+    </script>
+</body>
+</html>
