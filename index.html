@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthetic Data Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f0f4f8;
+            color: #333;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar h2 {
+            color: #0073e6;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            padding: 10px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #0073e6;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero {
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin: 10px 0 5px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .checkbox-container input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #0073e6;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #005bb5;
+        }
+
+        .output-container {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #333;
+            font-family: monospace;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>DataGen</h2>
+        <a href="#">Dashboard</a>
+        <a href="#">Generate Data</a>
+        <a href="#">Saved Data</a>
+        <a href="#">Settings</a>
+    </div>
+
+    <div class="main-content">
+        <div class="hero">
+            <h1>AI-Powered Synthetic Data Generator</h1>
+            <p>Create realistic synthetic datasets with ease.</p>
+        </div>
+
+        <div class="container">
+            <label for="domain">Select Domain:</label>
+            <select id="domain">
+                <option value="healthcare">Healthcare</option>
+                <option value="finance">Finance</option>
+                <option value="retail">Retail</option>
+                <option value="cybersecurity">Cybersecurity</option>
+                <option value="ecommerce">E-commerce</option>
+                <option value="hr">HR</option>
+            </select>
+
+            <label for="rows">Number of Rows:</label>
+            <input type="number" id="rows" value="10" min="1">
+
+            <label for="missing_values">Missing Values (%):</label>
+            <input type="number" id="missing_values" value="0" min="0" max="50">
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="outliers">
+                <label for="outliers">Add Outliers</label>
+            </div>
+
+            <label for="format">Output Format:</label>
+            <select id="format">
+                <option value="json">JSON</option>
+                <option value="csv">CSV</option>
+            </select>
+
+            <button>Generate Data</button>
+
+            <div class="output-container">
+                <h3>Output:</h3>
+                <pre id="output">Data will appear here...</pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
