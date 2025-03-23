@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferences - SynthData</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="preferences.css">
+    <style>
+        :root {
+    --primary: #3a86ff;
+    --dark: #212529;
+    --light: #f8f9fa;
+    --sidebar-bg: #1f2937;
+    --text-dark: #111827;
+    --text-light: white;
+}
+
+body {
+    display: flex;
+    font-family: 'Inter', sans-serif;
+    background: var(--light);
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: var(--sidebar-bg);
+    color: var(--text-light);
+    height: 100vh;
+    padding: 2rem 1rem;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 1rem;
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.sidebar nav a.active {
+    background: var(--primary);
+}
+
+.sidebar nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Main Content */
+.content {
+    margin-left: 280px;
+    padding: 2rem;
+    width: 100%;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+/* Settings Section */
+.settings {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.setting-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.setting-group label {
+    flex: 1;
+}
+
+/* File Upload Section */
+.upload-section {
+    margin-bottom: 1rem;
+}
+
+.upload-section input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.upload-section button {
+    background: #3a86ff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.transformation-options {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.transformation-options button:disabled {
+    background: gray;
+    cursor: not-allowed;
+}
+
+.data-preview {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+}
+.data-customization {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group input, .form-group select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group button {
+    background: #3a86ff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-group button:hover {
+    background: #2563eb;
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-sliders-h"></i>
+            <span>Preferences</span>
+        </div>
+        <nav>
+            <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+            <a href="solutions.html"><i class="fas fa-magic"></i> Solutions</a>
+            <a href="preferences.html" class="active"><i class="fas fa-cogs"></i> Preferences</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+        
+        <!-- File Upload & Transformation -->
+        <section class="data-transformation">
+            <h2>Data Upload & Transformation</h2>
+            <div class="upload-section">
+                <input type="file" id="file-input" accept=".csv">
+                <button id="upload-file">📂 Upload & Process</button>
+            </div>
+
+            <div class="transformation-options">
+                <button id="remove-duplicates" disabled>🧹 Remove Duplicates</button>
+                <button id="normalize-data" disabled>📊 Normalize Data</button>
+                <button id="reshape-data" disabled>🔄 Reshape Data</button>
+                <button id="categorize-data" disabled>🏷 Categorize Data</button>
+            </div>
+
+            <div class="data-preview">
+                <h3>Transformed Data Preview</h3>
+                <pre id="output-preview">{}</pre>
+            </div>
+        </section>
+        <section class="data-customization">
+            <h2>Data Processing & Customization</h2>
+        
+            <!-- Data Filtering -->
+            <div class="form-group">
+                <label for="filter-column">Filter Column:</label>
+                <input type="text" id="filter-column" placeholder="Column Name">
+                <label for="filter-value">Filter Value:</label>
+                <input type="text" id="filter-value" placeholder="Value">
+                <button id="apply-filter">🔍 Apply Filter</button>
+            </div>
+        
+            <!-- Data Merging -->
+            <div class="form-group">
+                <label for="merge-file">Merge Another Dataset:</label>
+                <input type="file" id="merge-file" accept=".csv">
+                <button id="merge-data">🔗 Merge Data</button>
+            </div>
+        
+            <!-- Data Encoding -->
+            <div class="form-group">
+                <label for="encode-column">Encode Column:</label>
+                <input type="text" id="encode-column" placeholder="Column Name">
+                <button id="encode-data">🔢 Encode Data</button>
+            </div>
+        
+            <!-- Data Scaling -->
+            <div class="form-group">
+                <label for="scaling-method">Scaling Method:</label>
+                <select id="scaling-method">
+                    <option value="minmax">Min-Max Scaling</option>
+                    <option value="standard">Standardization</option>
+                </select>
+                <button id="apply-scaling">📊 Scale Data</button>
+            </div>
+        
+            <!-- Data Type Conversion -->
+            <div class="form-group">
+                <label for="convert-column">Convert Column Type:</label>
+                <input type="text" id="convert-column" placeholder="Column Name">
+                <select id="convert-type">
+                    <option value="int">Integer</option>
+                    <option value="float">Float</option>
+                    <option value="string">String</option>
+                </select>
+                <button id="convert-data">🔄 Convert</button>
+            </div>
+        
+            <!-- Transformed Data Preview -->
+            <div class="data-preview">
+                <h3>Transformed Data Preview</h3>
+                <pre id="output-preview">{}</pre>
+            </div>
+        </section>
+        
+    </main>
+
+    <script>
+        // Dark Mode Toggle
+document.getElementById("dark-mode-toggle").addEventListener("change", function () {
+    document.body.classList.toggle("dark-mode");
+});
+
+// Theme Selection
+document.getElementById("theme-select").addEventListener("change", function () {
+    document.body.setAttribute("data-theme", this.value);
+});
+
+// Font Size Adjuster
+document.getElementById("font-size").addEventListener("input", function () {
+    document.body.style.fontSize = this.value + "px";
+});
+
+// File Upload Handling
+let uploadedFile = null;
+
+document.getElementById("file-input").addEventListener("change", function (event) {
+    uploadedFile = event.target.files[0];
+});
+
+document.getElementById("upload-file").addEventListener("click", async function () {
+    if (!uploadedFile) {
+        alert("Please select a CSV file first.");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("file", uploadedFile);
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/upload/", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) throw new Error("Upload failed");
+
+        const result = await response.json();
+        document.getElementById("output-preview").innerText = JSON.stringify(result.original_data, null, 2);
+
+        document.querySelectorAll(".transformation-options button").forEach(btn => btn.disabled = false);
+    } catch (error) {
+        document.getElementById("output-preview").innerText = "Error uploading file.";
+    }
+});
+// Apply Data Filtering
+document.getElementById("apply-filter").addEventListener("click", async function () {
+    const column = document.getElementById("filter-column").value;
+    const value = document.getElementById("filter-value").value;
+
+    if (!column || !value) {
+        alert("Please enter a column name and value to filter.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/process_data?action=filter&column=${column}&value=${value}`);
+        const result = await response.json();
+        document.getElementById("output-preview").innerText = JSON.stringify(result.processed_data, null, 2);
+    } catch (error) {
+        document.getElementById("output-preview").innerText = "Error applying filter.";
+    }
+});
+
+// Merge Data
+document.getElementById("merge-data").addEventListener("click", async function () {
+    const fileInput = document.getElementById("merge-file");
+    if (!fileInput.files[0]) {
+        alert("Please select a file to merge.");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/process_data?action=merge", {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+        document.getElementById("output-preview").innerText = JSON.stringify(result.processed_data, null, 2);
+    } catch (error) {
+        document.getElementById("output-preview").innerText = "Error merging data.";
+    }
+});
+
+// Encode Data
+document.getElementById("encode-data").addEventListener("click", async function () {
+    const column = document.getElementById("encode-column").value;
+
+    if (!column) {
+        alert("Please enter a column name to encode.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/process_data?action=encode&column=${column}`);
+        const result = await response.json();
+        document.getElementById("output-preview").innerText = JSON.stringify(result.processed_data, null, 2);
+    } catch (error) {
+        document.getElementById("output-preview").innerText = "Error encoding data.";
+    }
+});
+
+// Apply Scaling
+document.getElementById("apply-scaling").addEventListener("click", async function () {
+    const method = document.getElementById("scaling-method").value;
+
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/process_data?action=scale&method=${method}`);
+        const result = await response.json();
+        document.getElementById("output-preview").innerText = JSON.stringify(result.processed_data, null, 2);
+    } catch (error) {
+        document.getElementById("output-preview").innerText = "Error scaling data.";
+    }
+});
+
+// Convert Data Type
+document.getElementById("convert-data").addEventListener("click", async function () {
+    const column = document.getElementById("convert-column").value;
+    const type = document.getElementById("convert-type").value;
+
+    if (!column) {
+        alert("Please enter a column name to convert.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/process_data?action=convert&column=${column}&type=${type}`);
+        const result = await response.json();
+        document.getElementById("output-preview").innerText = JSON.stringify(result.processed_data, null, 2);
+    } catch (error) {
+        document.getElementById("output-preview").innerText = "Error converting data type.";
+    }
+});
+
+    </script>
+</body>
+</html>
